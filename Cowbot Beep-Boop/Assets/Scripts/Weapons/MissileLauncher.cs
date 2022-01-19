@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissileLauncher : IWeapon, ITurret {
+public class MissileLauncher : Weapon, ITurret {
     public float lockOnTime;
 
     public Projectile Fire()

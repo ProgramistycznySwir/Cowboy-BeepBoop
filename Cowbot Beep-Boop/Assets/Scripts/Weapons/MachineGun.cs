@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineGun : IWeapon, ITurret {
+public class MachineGun : Weapon, ITurret {
 
     public Projectile Fire()
     {
@@ -11,6 +11,8 @@ public class MachineGun : IWeapon, ITurret {
     }
     public bool AimAt(Vector2 target)
     {
-        throw new NotImplementedException();
+        transform.up = target - (Vector2)transform.position;
+
+        return IsInRange(transform.position, target);
     }
 }

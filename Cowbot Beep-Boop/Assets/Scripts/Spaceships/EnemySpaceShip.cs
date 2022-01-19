@@ -35,6 +35,7 @@ public class EnemySpaceShip : SpaceShip
 
     public void PerformFire()
     {
-        
+        // TODO: Change it to rely on IStrategy.
+        AimAt(PlayerSpaceShip.GetPosition());
     }
 }

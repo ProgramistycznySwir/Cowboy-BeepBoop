@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannon : IWeapon, ITurret {
+public class Cannon : Weapon, ITurret {
 
     public Projectile Fire()
     {

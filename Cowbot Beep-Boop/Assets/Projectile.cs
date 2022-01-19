@@ -5,12 +5,13 @@ using UnityEngine;
 using Cowbot_Beep_Boop.Data;
 using Cowbot_Beep_Boop.ProjectilePools;
 
-public abstract class Projectile {
-    public ProjectileTypeEnum type { get; }
-    public Color color { get; }
-    public int firedByID { get; }
-    public float lifeSpan { get; }
-    public float speed { get; }
+public abstract class Projectile : MonoBehaviour {
+    public ProjectileTypeEnum type;
+    public Color color;
+    public int firedByID;
+    public float lifeSpan;
+    public float speed;
+    public float damage;
 
     public void ReturnToPool()
     {
@@ -22,8 +23,8 @@ public abstract class Projectile {
         throw new NotImplementedException();
     } 
 
-    public Projectile Clone() {
-
+    public Projectile Clone()
+    {
         // return new Projectile();
         throw new NotImplementedException(); 
     }

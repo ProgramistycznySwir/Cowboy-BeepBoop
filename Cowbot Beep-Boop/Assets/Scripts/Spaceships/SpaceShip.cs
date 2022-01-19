@@ -5,19 +5,25 @@ using UnityEngine;
 using Cowbot_Beep_Boop.Data;
 // using System.Reactive.Subjects;
 
+// It's basically an abstract class, but Unity prevents
 public class SpaceShip : MonoBehaviour
 {
     public Rigidbody2D rigidbody;
 
     public float turnRate;
-    // public ITurret[] turrets;
+    public ITurret weaponControlSystem;
     public float health_max;
     public MyBehaviourSubject<float> health;
     public float speed;
 
-    void Awake()
+    public SpaceShip() 
     {
         health = new(health_max);
+    }
+
+    void Awake()
+    {
+        weaponControlSystem = transform.GetComponentInChildren<ITurret>();
     }
     // Start is called before the first frame update
     void Start()
@@ -38,6 +44,14 @@ public class SpaceShip : MonoBehaviour
     {
         rigidbody.AddRelativeForce(new Vector2(0, throttle * speed));
         rigidbody.MoveRotation(rigidbody.rotation + steering * turnRate * Time.deltaTime);
+    }
+    public void AimAt(Vector2 target)
+    {
+        weaponControlSystem.AimAt(target);
+    }
+    public void Fire()
+    {
+        weaponControlSystem.Fire();
     }
 
     public void ReceiveDamage(float dmg)
