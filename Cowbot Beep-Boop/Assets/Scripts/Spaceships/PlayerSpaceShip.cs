@@ -6,6 +6,11 @@ public class PlayerSpaceShip : SpaceShip
 {
     public int upgradeLvl;
 
+    void Awake()
+    {
+        playerTransform = this.transform;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,4 +30,8 @@ public class PlayerSpaceShip : SpaceShip
 
         Move(throttle, steering);
     }
+
+    private static Transform playerTransform;
+    public static Vector2 GetPosition()
+        => playerTransform.position;
 }
