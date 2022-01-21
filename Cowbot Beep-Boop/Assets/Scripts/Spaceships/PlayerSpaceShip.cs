@@ -4,34 +4,46 @@ using UnityEngine;
 
 public class PlayerSpaceShip : SpaceShip
 {
+    static PlayerSpaceShip _instance;
+
     public int upgradeLvl;
+
+    public PlayerSpaceShip() {
+        _instance = this;
+        teamID = 0;
+    }
 
     void Awake()
     {
+        base.Awake();
         playerTransform = this.transform;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        SubscribeToHealthChange(next: (param) => Debug.Log(param));
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        RegisterInput();
+        var(throttle, steering) = RegisterInput();
+        Move(throttle, steering);
     }
 
-    public void RegisterInput()
+    public (float throttle, float steering) RegisterInput()
     {
         float throttle = Input.GetAxis("Vertical");
         float steering = -Input.GetAxis("Horizontal");
 
-        Move(throttle, steering);
+        return (throttle, steering);
     }
 
     private static Transform playerTransform;
     public static Vector2 GetPosition()
         => playerTransform.position;
+    public static PlayerSpaceShip GetPlayer()
+        => _instance;
 }

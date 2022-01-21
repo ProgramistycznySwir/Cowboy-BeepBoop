@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponGroup : ITurret {
     //IWeapon subWeapons;
 
-    public Projectile Fire()
+    public void Fire()
     {
         throw new NotImplementedException();
     }

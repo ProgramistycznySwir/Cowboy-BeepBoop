@@ -6,7 +6,7 @@ public class HomingMissile : Projectile {
     float turnRate;
     SpaceShip target;
 
-    public void Move()
+    protected override void Move()
     {
 
     }

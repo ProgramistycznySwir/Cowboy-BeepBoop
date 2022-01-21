@@ -6,7 +6,7 @@ using UnityEngine;
 public class MissileLauncher : Weapon, ITurret {
     public float lockOnTime;
 
-    public Projectile Fire()
+    public void Fire()
     {
         throw new NotImplementedException();
     }

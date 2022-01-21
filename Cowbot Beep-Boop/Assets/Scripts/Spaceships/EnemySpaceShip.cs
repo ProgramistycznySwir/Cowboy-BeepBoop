@@ -7,6 +7,9 @@ public class EnemySpaceShip : SpaceShip
 {
     public IStrategy strategy { get; private set; }
 
+    public EnemySpaceShip() {
+        teamID = 1;
+    }
     public EnemySpaceShip Init(IStrategy strategy)
     {
         this.strategy = strategy;
@@ -37,5 +40,6 @@ public class EnemySpaceShip : SpaceShip
     {
         // TODO: Change it to rely on IStrategy.
         AimAt(PlayerSpaceShip.GetPosition());
+        weaponControlSystem.Fire();
     }
 }

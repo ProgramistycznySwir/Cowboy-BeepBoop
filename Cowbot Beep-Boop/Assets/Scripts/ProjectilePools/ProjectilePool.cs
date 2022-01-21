@@ -5,16 +5,21 @@ namespace Cowbot_Beep_Boop.ProjectilePools
 {
     public class ProjectilePool
     {
-        Projectile prefab;
-        Stack<Projectile> pool;
+        Projectile prototype;
+        Stack<Projectile> pool = new();
+
+        public ProjectilePool(Projectile prototype)
+        {
+            this.prototype = prototype;
+        }
 
         public Projectile GetProjectile() {
             if(pool.Count > 0)
                 return pool.Pop();
-            return prefab.Clone();
+            return prototype.Clone();
         }
 
-        public void  ReturnProjectile(Projectile projectile) {
+        public void ReturnProjectile(Projectile projectile) {
             pool.Push(projectile);
         }
     }

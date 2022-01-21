@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ITurret {
-    public Projectile Fire();
+    public void Fire();
     public bool AimAt(Vector2 target);
 }

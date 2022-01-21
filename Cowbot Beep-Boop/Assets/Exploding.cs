@@ -7,7 +7,7 @@ public class Exploding : Projectile{
     float proximityRadius;
     float impactDamage;
 
-    public void Move()
+    protected override void Move()
     {
 
     }

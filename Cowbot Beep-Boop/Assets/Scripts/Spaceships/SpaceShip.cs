@@ -8,22 +8,21 @@ using Cowbot_Beep_Boop.Data;
 // It's basically an abstract class, but Unity prevents
 public class SpaceShip : MonoBehaviour
 {
+    public int teamID { get; protected set; }
     public Rigidbody2D rigidbody;
 
     public float turnRate;
     public ITurret weaponControlSystem;
+    public Transform weaponControlSystem_transform;
     public float health_max;
     public MyBehaviourSubject<float> health;
     public float speed;
 
-    public SpaceShip() 
+    protected void Awake()
     {
         health = new(health_max);
-    }
-
-    void Awake()
-    {
-        weaponControlSystem = transform.GetComponentInChildren<ITurret>();
+        weaponControlSystem = weaponControlSystem_transform.GetComponent<ITurret>();
+        AssignParentToAllWeapons(weaponControlSystem_transform);
     }
     // Start is called before the first frame update
     void Start()
@@ -58,8 +57,14 @@ public class SpaceShip : MonoBehaviour
     {
         health.Value -= dmg;
     }
-    public IDisposable SubscribeToHealthChange(Action<float> action)
+    public IDisposable SubscribeToHealthChange(Action<float> next)
     {
-        return health.SubscribeOnce(action);
+        return health.SubscribeOnce(next);
+    }
+
+    public void AssignParentToAllWeapons(Transform root)
+    {
+        foreach (Weapon weapon in root.GetComponentsInChildren<Weapon>())
+            weapon.AssignParentSpaceship(this);
     }
 }

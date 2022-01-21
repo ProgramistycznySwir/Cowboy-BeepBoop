@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Cannon : Weapon, ITurret {
 
-    public Projectile Fire()
+    public void Fire()
     {
         throw new NotImplementedException();
     }

@@ -5,9 +5,9 @@ namespace Cowbot_Beep_Boop.Data
 {
     public class MyBehaviourSubject<T>
     {
-        private Action<T> actions_Next;
-        private Action<Exception> actions_Error;
-        private Action actions_Completed;
+        private Action<T> actions_Next = (param) => {};
+        private Action<Exception> actions_Error = (param) => {};
+        private Action actions_Completed = () => {};
         private T _value;
         public T Value {
             get => _value;

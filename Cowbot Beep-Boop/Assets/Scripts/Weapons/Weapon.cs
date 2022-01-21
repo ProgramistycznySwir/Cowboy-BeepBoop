@@ -4,12 +4,17 @@ using UnityEngine;
 using Cowbot_Beep_Boop.Data;
 
 public abstract class Weapon : MonoBehaviour {
-    public GameObject prefab;
+    // public GameObject prefab;
+    public SpaceShip spaceShip { get; private set; }
+    public ProjectileTypeEnum pool;
     public Transform barrelEnd; // Unity specyfic for placing projectiles in space.
-    float damage;
-    float speed;
-    float range;
+    public float damage;
+    public float speed;
+    public float range;
+    public float fireRate;
+    public float cooldown => 1/fireRate;
     public bool IsInRange(Vector2 position, Vector2 target)
         => (position - target).magnitude < range;
-    ProjectileTypeEnum pool;
+    public void AssignParentSpaceship(SpaceShip spaceShip)
+        => this.spaceShip = spaceShip;
 }
