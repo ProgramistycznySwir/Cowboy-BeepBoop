@@ -6,13 +6,26 @@ public class Bullet : Projectile {
     // Used only in FixedUpdate() context.
     protected override void Move()
     {
-        Vector2 nextPosition = (Vector2)transform.position + velocity * Time.fixedDeltaTime;
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, nextPosition);
-        if(hit.collider is not null)
+        if(Time.time > aliveUntil)
         {
-            hit.transform.GetComponentInParent<SpaceShip>().ReceiveDamage(damage);
             ReturnToPool();
             return;
+        }
+        Vector2 nextPosition = (Vector2)transform.position + velocity * Time.fixedDeltaTime;
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, nextPosition);
+        if(hits is not null)
+        {
+            for(int i = 0; i < hits.Length; i++)
+            {
+                var hit = hits[i];
+                var spaceship = hit.transform.GetComponentInParent<SpaceShip>();
+                if(spaceship is not null && spaceship.teamID != firedByID)
+                {
+                    spaceship.ReceiveDamage(damage);
+                    ReturnToPool();
+                    return;
+                }
+            }
         }
         transform.position = nextPosition;
         transform.up = velocity;

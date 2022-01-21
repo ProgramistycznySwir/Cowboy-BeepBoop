@@ -10,6 +10,7 @@ public abstract class Projectile : MonoBehaviour {
     public int firedByID;
     public Color color;
     public float lifeSpan;
+    protected float aliveUntil;
     public Vector2 velocity;
     public float damage;
 
@@ -25,6 +26,7 @@ public abstract class Projectile : MonoBehaviour {
         this.velocity = velocity;
         this.firedByID = firedByID;
         this.lifeSpan = lifeSpan;
+        aliveUntil = Time.time + lifeSpan;
         this.damage = damage;
         this.color = color;
         return this;

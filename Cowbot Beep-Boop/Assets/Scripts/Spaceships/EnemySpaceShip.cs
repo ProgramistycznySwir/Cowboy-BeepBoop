@@ -19,7 +19,8 @@ public class EnemySpaceShip : SpaceShip
     void Start()
     {
         if(strategy is null)
-            Init(new ChargeAtEnemyStrategy());
+            // Init(new ChargeAtEnemyStrategy());
+            Init(new DefaultStrategy());
     }
 
     // Update is called once per frame

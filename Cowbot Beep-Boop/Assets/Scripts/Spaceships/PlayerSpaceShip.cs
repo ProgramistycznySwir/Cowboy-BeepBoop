@@ -29,16 +29,21 @@ public class PlayerSpaceShip : SpaceShip
     // Update is called once per frame
     void Update()
     {
-        var(throttle, steering) = RegisterInput();
+        var(throttle, steering, aimAt, fire) = RegisterInput();
         Move(throttle, steering);
+        AimAt(aimAt);
+        if(fire)
+            Fire();
     }
 
-    public (float throttle, float steering) RegisterInput()
+    public (float throttle, float steering, Vector2 aimAt, bool fire) RegisterInput()
     {
         float throttle = Input.GetAxis("Vertical");
         float steering = -Input.GetAxis("Horizontal");
+        Vector2 aimAt = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        bool fire = Input.GetAxis("Fire1") is not 0;
 
-        return (throttle, steering);
+        return (throttle, steering, aimAt, fire);
     }
 
     private static Transform playerTransform;
