@@ -11,13 +11,14 @@ namespace Cowbot_Beep_Boop.ProjectilePools
     {
         public GameObject[] prefabs;
         static ProjectilePools _instance;
+        public static ProjectilePools GetInstance() => _instance;
 
         public ProjectilePools()
             => _instance = this;
 
         static Dictionary<ProjectileTypeEnum, ProjectilePool> pools = new();
 
-        public static ProjectilePool GetPool(ProjectileTypeEnum type) {
+        public ProjectilePool GetPool(ProjectileTypeEnum type) {
             if(pools.TryGetValue(type, out ProjectilePool pool))
                 return pool;
 

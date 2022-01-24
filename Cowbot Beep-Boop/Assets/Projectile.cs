@@ -40,7 +40,7 @@ public abstract class Projectile : MonoBehaviour {
     public void ReturnToPool()
     {
         gameObject.SetActive(false);
-        ProjectilePools.GetPool(type).ReturnProjectile(this);
+        ProjectilePools.GetInstance().GetPool(type).ReturnProjectile(this);
     }
 
     protected abstract void Move();

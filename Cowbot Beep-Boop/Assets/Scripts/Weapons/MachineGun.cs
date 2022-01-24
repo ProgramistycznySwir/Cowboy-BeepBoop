@@ -10,7 +10,7 @@ public class MachineGun : Weapon, ITurret {
     {
         if(canFireAfter < Time.time)
         {
-            Projectile newProjectile = ProjectilePools.GetPool(pool).GetProjectile().Init(
+            Projectile newProjectile = ProjectilePools.GetInstance().GetPool(pool).GetProjectile().Init(
                 firedByID: spaceShip.teamID,
                 position: barrelEnd.position,
                 velocity: barrelEnd.up * speed,
