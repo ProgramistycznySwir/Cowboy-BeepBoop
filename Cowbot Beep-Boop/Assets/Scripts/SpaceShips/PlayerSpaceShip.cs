@@ -8,6 +8,8 @@ public class PlayerSpaceShip : SpaceShip
 
     public int upgradeLvl;
 
+    public SpriteRenderer engineExhaust_Animation;
+
     public PlayerSpaceShip() {
         _instance = this;
         teamID = 0;
@@ -51,4 +53,12 @@ public class PlayerSpaceShip : SpaceShip
         => playerTransform.position;
     public static PlayerSpaceShip GetPlayer()
         => _instance;
+
+    protected override void OnDeath()
+    {
+        health.OnCompleted();
+        // EnemyManager.GetInstance().RemoveEnemy(this);
+        // TODO: Trigger GameOver logic
+        // Destroy(gameObject);
+    }
 }

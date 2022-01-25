@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cowbot_Beep_Boop.Strategies;
+using Cowbot_Beep_Boop.SpaceShips;
 
 public class EnemySpaceShip : SpaceShip
 {
@@ -45,5 +46,12 @@ public class EnemySpaceShip : SpaceShip
         // TODO: Change it to rely on IStrategy.
         AimAt(PlayerSpaceShip.GetPosition());
         weaponControlSystem.Fire();
+    }
+
+    protected override void OnDeath()
+    {
+        health.OnCompleted();
+        EnemyManager.GetInstance().RemoveEnemy(this);
+        Destroy(gameObject);
     }
 }

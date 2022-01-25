@@ -23,6 +23,8 @@ namespace Cowbot_Beep_Boop.SpaceShips
         // public string ResourceName = "enemies";
 
         public List<EnemySpaceShip> enemyPrototypes;
+        // public int EnemyCount { get; private set; }
+        public List<EnemySpaceShip> Enemies { get; private set; } = new List<EnemySpaceShip>();
         // public Dictionary<string, EnemyStats> Enemies { get; set; }
         // public int EnemyCount => Enemies.Count;
 
@@ -40,26 +42,67 @@ namespace Cowbot_Beep_Boop.SpaceShips
             enemyPrototypes.Sort((left, right) => left.difficulty.CompareTo(right.difficulty));
         }
 
-        public void SpawnEnemies(int sumDifficulty)
+        public void SpawnEnemies(int sumDifficulty, int minDifficulty = 0)
         {
             int topIndex = enemyPrototypes.Count - 1;
+            int minIndex = 0;
             System.Random rng = new();
             while(sumDifficulty > 0)
             {
-                int enemyIndex = rng.Next(topIndex);
+                int enemyIndex = minIndex + rng.Next(topIndex - minIndex);
                 EnemySpaceShip enemy = enemyPrototypes[enemyIndex];
-                if(enemy.difficulty <= sumDifficulty)
+                if(enemy.difficulty > sumDifficulty)
                 {
-                    GameObject.Instantiate(
-                            enemy.transform,
-                            PlayerSpaceShip.GetPosition() + Vector2_Extensions.FromRandomAngle() * SpawnRadius,
-                            Quaternion.identity)
-                        .gameObject.SetActive(true);
-                    sumDifficulty -= enemy.difficulty;
-                }
-                else
                     topIndex = enemyIndex;
+                    continue;
+                }
+                if(enemy.difficulty < minDifficulty)
+                {
+                    minIndex = enemyIndex;
+                    continue;
+                }
+                
+                Transform newEnemy = GameObject.Instantiate(
+                        enemy.transform,
+                        PlayerSpaceShip.GetPosition() + Vector2_Extensions.FromRandomAngle() * SpawnRadius,
+                        Quaternion.identity);
+                newEnemy.gameObject.SetActive(true);
+                Enemies.Add(newEnemy.GetComponent<EnemySpaceShip>());
+                sumDifficulty -= enemy.difficulty;
             }
+        }
+
+        public void RemoveEnemy(EnemySpaceShip enemy)
+        {
+            Enemies.Remove(enemy);
+            if(Enemies.Count <= 0)
+            {
+                // TODO: Behaviour when player defeats all enemies.
+                EndLevel();
+            }
+        }
+
+        void EndLevel()
+        {
+            Debug.Log("You've won!!");
+        }
+
+        public Vector2 GetClosestEnemyPosition()
+        {
+            Vector2 playerPos = PlayerSpaceShip.GetPosition();
+            Vector2 closestPos = Vector2.zero;
+            float closestDistance = float.MaxValue;
+            for(int i = 0; i < Enemies.Count; i++)
+            {
+                var enemy = Enemies[i];
+                float dist = Vector2.Distance(playerPos, enemy.transform.position);
+                if(dist < closestDistance)
+                {
+                    closestDistance = dist;
+                    closestPos = enemy.transform.position;
+                }
+            }
+            return closestPos;
         }
 
         // public void LoadFromJson()

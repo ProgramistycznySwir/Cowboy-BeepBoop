@@ -3,6 +3,12 @@ using System.Linq;
 
 namespace Cowbot_Beep_Boop.Data
 {
+    // This class does not implement IObservable interface cause T wanted to make it more flexible letting users to
+    //   subscribe with lambdas and not having to create whole classes for observing only one variable.
+    //   The most prominent example is in display classes which potentially can display data from many observables,
+    //   but IObservable lets creation of only one OnNext() method. Hence it would have to be tuple and update whole
+    //   tuple, or there would have to be many intermediate classes, one for each variable we would like to observe.
+    // This class implements methods of ISubject, IObservable and IObserver, but in it's unique way.
     public class MyBehaviourSubject<T>
     {
         private Action<T> actions_Next = (param) => {};
@@ -19,6 +25,13 @@ namespace Cowbot_Beep_Boop.Data
         public MyBehaviourSubject(T initialValue)
             => this._value = initialValue;
         
+        /// <summary>
+        /// Makes sure that actions are subscribed only once to this observable.
+        /// </summary>
+        /// <param name="next">Invoked on data change.</param>
+        /// <param name="error">Invoked when there is error with data.</param>
+        /// <param name="complete">Invoked on end of changes stream.</param>
+        /// <returns>Object used to unsubscribe from this particular observable.</returns>
         public IDisposable SubscribeOnce(Action<T> next = null!, Action<Exception> error = null!, Action complete = null!)
         {
             if(next is not null && (actions_Next is null || actions_Next.GetInvocationList().Contains(next) is false))
@@ -36,6 +49,10 @@ namespace Cowbot_Beep_Boop.Data
             actions_Completed = (Action)Action.RemoveAll(actions_Completed, complete)!;
         }
 
+        /// <summary>
+        /// Only emits value without changing MyBehaviourSubject.Value.
+        ///  Use with care!
+        /// </summary>
         public void OnNext(T value_)
             => actions_Next(value_);
 

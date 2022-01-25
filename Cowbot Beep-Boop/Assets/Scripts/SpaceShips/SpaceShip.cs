@@ -6,7 +6,7 @@ using Cowbot_Beep_Boop.Data;
 // using System.Reactive.Subjects;
 
 // It's basically an abstract class, but Unity prevents
-public class SpaceShip : MonoBehaviour
+public abstract class SpaceShip : MonoBehaviour
 {
     public int teamID { get; protected set; }
     public Rigidbody2D rigidbody;
@@ -15,7 +15,7 @@ public class SpaceShip : MonoBehaviour
     public ITurret weaponControlSystem;
     public Transform weaponControlSystem_transform;
     public float health_max;
-    MyBehaviourSubject<float> health;
+    protected MyBehaviourSubject<float> health;
     public float speed;
 
     protected void Awake()
@@ -56,6 +56,10 @@ public class SpaceShip : MonoBehaviour
     public void ReceiveDamage(float dmg)
     {
         health.Value -= dmg;
+        if(health.Value <= 0)
+        {
+            OnDeath();
+        }
     }
     public IDisposable SubscribeToHealthChange(Action<float> next)
     {
@@ -67,4 +71,6 @@ public class SpaceShip : MonoBehaviour
         foreach (Weapon weapon in root.GetComponentsInChildren<Weapon>())
             weapon.AssignParentSpaceship(this);
     }
+
+    protected abstract void OnDeath();
 }
