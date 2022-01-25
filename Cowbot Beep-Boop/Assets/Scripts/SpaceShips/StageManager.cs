@@ -10,30 +10,38 @@ using Cowbot_Beep_Boop.Helpful;
 
 namespace Cowbot_Beep_Boop.SpaceShips
 {
-    public class EnemyManager : MonoBehaviour
+    public class StageManager : MonoBehaviour
     {
         public const float SpawnRadius = 20f;
 
-        static EnemyManager _instance;
-        public static EnemyManager GetInstance() => _instance;
+        static StageManager _instance;
+        public static StageManager GetInstance() => _instance;
 
-        public EnemyManager() => _instance = this;
-
-
-        // public string ResourceName = "enemies";
+        public StageManager() => _instance = this;
 
         public List<EnemySpaceShip> enemyPrototypes;
-        // public int EnemyCount { get; private set; }
         public List<EnemySpaceShip> Enemies { get; private set; } = new List<EnemySpaceShip>();
-        // public Dictionary<string, EnemyStats> Enemies { get; set; }
-        // public int EnemyCount => Enemies.Count;
+        public int currentStage { get; private set; } = 0;
+        public static readonly (int sumDifficulty, int minDifficulty)[] Stages = new[]{
+            (2, 0),
+            (4, 0),
+            (8, 0),
+            (16, 2),
+            (32, 2),
+            (64, 2),
+            (128, 3),
+            (256, 3),
+            (512, 3),
+            (1024, 3),
+            (2048, 3),
+        };
+
+        public StageEndMenu stageEndMenu;
 
         void Start()
         {
-            // DEBUG_CreateExampleFile();
-            // LoadFromJson();
             PrepareEnemies();
-            SpawnEnemies(2);
+            NextStage();
         }
 
         public void PrepareEnemies()
@@ -42,6 +50,8 @@ namespace Cowbot_Beep_Boop.SpaceShips
             enemyPrototypes.Sort((left, right) => left.difficulty.CompareTo(right.difficulty));
         }
 
+        public void SpawnEnemies((int sumDifficulty, int minDifficulty) tuple)
+            => SpawnEnemies(tuple.sumDifficulty, tuple.minDifficulty);
         public void SpawnEnemies(int sumDifficulty, int minDifficulty = 0)
         {
             int topIndex = enemyPrototypes.Count - 1;
@@ -78,11 +88,27 @@ namespace Cowbot_Beep_Boop.SpaceShips
             if(Enemies.Count <= 0)
             {
                 // TODO: Behaviour when player defeats all enemies.
-                EndLevel();
+                EndStage();
             }
         }
 
-        void EndLevel()
+        void EndStage()
+        {
+            currentStage++;
+            if(currentStage >= Stages.Length)
+                Victory();
+            else
+                NextStage();
+        }
+
+        void NextStage()
+        {
+            stageEndMenu.Open();
+            // Debug.Log($"Generating stage with sumDifficulty: {Stages[currentStage].sumDifficulty}, minDifficulty: {Stages[currentStage].minDifficulty}");
+            SpawnEnemies(Stages[currentStage]);
+        }
+
+        void Victory()
         {
             Debug.Log("You've won!!");
         }
@@ -104,28 +130,5 @@ namespace Cowbot_Beep_Boop.SpaceShips
             }
             return closestPos;
         }
-
-        // public void LoadFromJson()
-        // {
-        //     TextAsset jasonFile = (TextAsset)Resources.Load(ResourceName);
-        //     var enemyData = JsonUtility.FromJson<EnemyData>(jasonFile.text);
-        //     var enemyList = enemyData.EnemyList;
-        //     Enemies = enemyList.ToDictionary(item => item.Name);
-        //     // Enemies = JsonUtility
-        //     //         .FromJson<EnemyData>(jasonFile.text)
-        //     //         .EnemyList
-        //     //         .ToDictionary(item => item.Name);
-        // }
-
-        // public void DEBUG_CreateExampleFile()
-        // {
-        //     EnemyData enemyData = new();
-        //     // List<Stats_Prototype> list = new();
-        //     enemyData.EnemyList = new EnemyStats[4];
-        //     enemyData.EnemyList[0] = new EnemyStats();
-        //     enemyData.EnemyList[1] = new EnemyStats();
-
-        //     File.WriteAllText("enemies_example.json", JsonUtility.ToJson(enemyData, true));
-        // }
     }
 }

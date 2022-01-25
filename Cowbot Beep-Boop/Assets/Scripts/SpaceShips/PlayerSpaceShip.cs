@@ -54,6 +54,26 @@ public class PlayerSpaceShip : SpaceShip
     public static PlayerSpaceShip GetPlayer()
         => _instance;
 
+    #region >>> Upgrades <<<
+    public void UpgradeHP()
+    {
+        health_max *= 1.25f;
+        health.OnNext();
+    }
+    public void Heal()
+    {
+        health.Value = health_max;
+    }
+    public void UpgradeDmg()
+    {
+        weaponControlSystem_transform.GetComponentInChildren<Weapon>().damage *= 1.5f;
+    }
+    public void UpgradeRoF()
+    {
+        weaponControlSystem_transform.GetComponentInChildren<Weapon>().fireRate *= 1.5f;
+    }
+    #endregion
+
     protected override void OnDeath()
     {
         health.OnCompleted();

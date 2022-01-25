@@ -55,6 +55,8 @@ namespace Cowbot_Beep_Boop.Data
         /// </summary>
         public void OnNext(T value_)
             => actions_Next(value_);
+        public void OnNext()
+            => actions_Next(_value);
 
         public void OnError(Exception exception)
             => actions_Error(exception);

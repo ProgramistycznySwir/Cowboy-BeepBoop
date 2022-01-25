@@ -51,7 +51,7 @@ public class EnemySpaceShip : SpaceShip
     protected override void OnDeath()
     {
         health.OnCompleted();
-        EnemyManager.GetInstance().RemoveEnemy(this);
+        StageManager.GetInstance().RemoveEnemy(this);
         Destroy(gameObject);
     }
 }
