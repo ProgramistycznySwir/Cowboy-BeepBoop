@@ -1,1 +1,48 @@
-{}
+{
+    "EnemyList": [
+        {
+            "Name": "",
+            "PrototypeName": "",
+            "Difficulty": 0,
+            "StrategyType": 0,
+            "MaxHP": 0.0,
+            "Speed": 0.0,
+            "Damage_multiplier": 1.0,
+            "RateOfFire_multiplier": 1.0,
+            "ProjectileSpeed_multiplier": 1.0
+        },
+        {
+            "Name": "",
+            "PrototypeName": "",
+            "Difficulty": 0,
+            "StrategyType": 0,
+            "MaxHP": 0.0,
+            "Speed": 0.0,
+            "Damage_multiplier": 1.0,
+            "RateOfFire_multiplier": 1.0,
+            "ProjectileSpeed_multiplier": 1.0
+        },
+        {
+            "Name": "",
+            "PrototypeName": "",
+            "Difficulty": 0,
+            "StrategyType": 0,
+            "MaxHP": 0.0,
+            "Speed": 0.0,
+            "Damage_multiplier": 1.0,
+            "RateOfFire_multiplier": 1.0,
+            "ProjectileSpeed_multiplier": 1.0
+        },
+        {
+            "Name": "",
+            "PrototypeName": "",
+            "Difficulty": 0,
+            "StrategyType": 0,
+            "MaxHP": 0.0,
+            "Speed": 0.0,
+            "Damage_multiplier": 1.0,
+            "RateOfFire_multiplier": 1.0,
+            "ProjectileSpeed_multiplier": 1.0
+        }
+    ]
+}

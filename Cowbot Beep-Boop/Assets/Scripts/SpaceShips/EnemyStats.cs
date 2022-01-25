@@ -1,5 +1,6 @@
 namespace Cowbot_Beep_Boop.SpaceShips
 {
+    [System.Serializable]
     public class EnemyStats
     {
         public string Name;
@@ -7,7 +8,7 @@ namespace Cowbot_Beep_Boop.SpaceShips
 
         public int Difficulty;
 
-        // public Strategies.StrategyType StrategyType;
+        public Strategies.StrategyType StrategyType;
 
         public float MaxHP;
         public float Speed;

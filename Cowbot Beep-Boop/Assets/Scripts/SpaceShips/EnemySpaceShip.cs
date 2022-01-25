@@ -5,7 +5,10 @@ using Cowbot_Beep_Boop.Strategies;
 
 public class EnemySpaceShip : SpaceShip
 {
+    public StrategyType strategyType;
     public IStrategy strategy { get; private set; }
+    // For sake of auto-generating levels
+    public int difficulty;
 
     public EnemySpaceShip() {
         teamID = 1;
@@ -20,7 +23,7 @@ public class EnemySpaceShip : SpaceShip
     {
         if(strategy is null)
             // Init(new ChargeAtEnemyStrategy());
-            Init(new DefaultStrategy());
+            Init(IStrategy.GetStrategy(strategyType));
     }
 
     // Update is called once per frame

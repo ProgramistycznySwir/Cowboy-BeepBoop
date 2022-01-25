@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cowbot_Beep_Boop.Helpful;
 
 namespace Cowbot_Beep_Boop.Strategies
 {
@@ -31,7 +32,7 @@ namespace Cowbot_Beep_Boop.Strategies
 
             Vector2 enemyDelta = position - playerPosition;
             float enemyAngle = Vector2.SignedAngle(Vector2.up, enemyDelta);
-            Vector2 flightTowards = playerPosition + FromAngle(enemyAngle + orbitAngle) * orbitRadius;
+            Vector2 flightTowards = playerPosition + Vector2_Extensions.FromAngle(enemyAngle + orbitAngle) * orbitRadius;
             Vector2 flightTowardsDelta = flightTowards - position;
             float flightTowardsAngle = Vector2.SignedAngle(forward, flightTowardsDelta);
 
@@ -44,12 +45,6 @@ namespace Cowbot_Beep_Boop.Strategies
             
             // Debug.Log(throttle, steering);
             return (throttle, steering);
-        }
-
-        public static Vector2 FromAngle(float angle)
-        {
-            float angle_rad = angle * Mathf.Deg2Rad;
-            return new Vector2(Mathf.Cos(angle_rad), Mathf.Sin(angle_rad));
         }
     }
 }

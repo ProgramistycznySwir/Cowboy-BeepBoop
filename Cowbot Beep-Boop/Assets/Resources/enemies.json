@@ -1,0 +1,15 @@
+{
+    "EnemyList": [
+        {
+            "Name": "Chaser v1",
+            "PrototypeName": "enemy_chaser",
+            "Difficulty": 1,
+            "StrategyType": 0,
+            "MaxHP": 20.0,
+            "Speed": 6.0,
+            "Damage_multiplier": 1.0,
+            "RateOfFire_multiplier": 1.0,
+            "ProjectileSpeed_multiplier": 1.0
+        }
+    ]
+}

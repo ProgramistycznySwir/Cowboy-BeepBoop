@@ -15,7 +15,6 @@ public class PlayerSpaceShip : SpaceShip
 
     void Awake()
     {
-        Cowbot_Beep_Boop.SpaceShips.EnemyManager.GetInstance().DEBUG_CreateExampleFile();
         base.Awake();
         playerTransform = this.transform;
     }

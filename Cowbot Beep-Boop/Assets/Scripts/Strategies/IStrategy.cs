@@ -10,7 +10,7 @@ namespace Cowbot_Beep_Boop.Strategies
         Vector2 Fire(Vector2 position, Vector2 playerPosition);
         (float throttle, float steering) Move(Vector2 position, Vector2 forward, Vector2 playerPosition);
 
-        public IStrategy GetStrategy(StrategyType type)
+        public static IStrategy GetStrategy(StrategyType type)
             => type switch {
                 StrategyType.Default => new DefaultStrategy(),
                 StrategyType.ChargeAtEnemy => new ChargeAtEnemyStrategy(),
