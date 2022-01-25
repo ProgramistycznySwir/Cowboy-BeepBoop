@@ -65,8 +65,11 @@ namespace Cowbot_Beep_Boop.Data
         {
             actions_Completed();
             actions_Next = null!;
+            actions_Next = (param) => {};
             actions_Error = null!;
+            actions_Error = (param) => {};
             actions_Completed = null!;
+            actions_Completed = () => {};
         }
 
         private class Unsubscriber : IDisposable

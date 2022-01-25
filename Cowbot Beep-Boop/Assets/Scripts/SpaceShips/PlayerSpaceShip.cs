@@ -24,7 +24,7 @@ public class PlayerSpaceShip : SpaceShip
     // Start is called before the first frame update
     void Start()
     {
-        SubscribeToHealthChange(next: (param) => Debug.Log(param));
+        // SubscribeToHealthChange(next: (param) => Debug.Log(param));
         
     }
 

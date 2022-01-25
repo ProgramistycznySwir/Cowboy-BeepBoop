@@ -41,6 +41,8 @@ public abstract class SpaceShip : MonoBehaviour
     /// </summary>
     public void Move(float throttle, float steering)
     {
+        if(Time.timeScale is 0f)
+            return;
         rigidbody.AddRelativeForce(new Vector2(0, throttle * speed));
         rigidbody.MoveRotation(rigidbody.rotation + steering * turnRate * Time.deltaTime);
     }
