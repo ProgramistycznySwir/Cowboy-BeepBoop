@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VictoryMenu : MonoBehaviour
 {
@@ -14,5 +15,20 @@ public class VictoryMenu : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Open()
+    {
+        Time.timeScale = 0f;
+        gameObject.SetActive(true);
+    }
+
+    public void OnOpenStartMenu()
+    {
+        SceneManager.LoadScene("GameStart");
+    }
+    public void OnQuit()
+    {
+        Application.Quit();
     }
 }

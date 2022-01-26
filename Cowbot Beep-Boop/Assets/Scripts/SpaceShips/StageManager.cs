@@ -21,6 +21,7 @@ namespace Cowbot_Beep_Boop.SpaceShips
 
         public List<EnemySpaceShip> enemyPrototypes;
         public List<EnemySpaceShip> Enemies { get; private set; } = new List<EnemySpaceShip>();
+        public const int EnemyLimit = 25;
         public int currentStage { get; private set; } = 0;
         public static readonly (int sumDifficulty, int minDifficulty)[] Stages = new[]{
             (2, 0), // 0
@@ -57,7 +58,7 @@ namespace Cowbot_Beep_Boop.SpaceShips
             int topIndex = enemyPrototypes.Count - 1;
             int minIndex = 0;
             System.Random rng = new();
-            while(sumDifficulty > 0 && sumDifficulty >= minDifficulty)
+            while(sumDifficulty > 0 && sumDifficulty >= minDifficulty && Enemies.Count <= EnemyLimit)
             {
                 int enemyIndex = minIndex + rng.Next(topIndex - minIndex) + 1;
                 EnemySpaceShip enemy = enemyPrototypes[enemyIndex];
@@ -98,13 +99,14 @@ namespace Cowbot_Beep_Boop.SpaceShips
             if(currentStage >= Stages.Length)
                 Victory();
             else
+            {
                 NextStage();
+                stageEndMenu.Open();
+            }
         }
 
         void NextStage()
         {
-            Debug.Log($"currentStage: {currentStage}");
-            stageEndMenu.Open();
             // Debug.Log($"Generating stage with sumDifficulty: {Stages[currentStage].sumDifficulty}, minDifficulty: {Stages[currentStage].minDifficulty}");
             SpawnEnemies(Stages[currentStage]);
         }

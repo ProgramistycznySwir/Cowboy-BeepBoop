@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
-
     public void LoadGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Main");
     }
-    
-    
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
 }

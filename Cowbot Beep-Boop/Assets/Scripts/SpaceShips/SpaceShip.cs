@@ -24,16 +24,10 @@ public abstract class SpaceShip : MonoBehaviour
         weaponControlSystem = weaponControlSystem_transform.GetComponent<ITurret>();
         AssignParentToAllWeapons(weaponControlSystem_transform);
     }
-    // Start is called before the first frame update
-    void Start()
+    // Unity method invoked on destruction of object, prefect for IDisposable.Dispose() stuff.
+    void OnDestroy()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        health.OnCompleted();
     }
 
     /// <summary>

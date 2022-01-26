@@ -76,7 +76,6 @@ public class PlayerSpaceShip : SpaceShip
 
     protected override void OnDeath()
     {
-        health.OnCompleted();
         // EnemyManager.GetInstance().RemoveEnemy(this);
         // TODO: Trigger GameOver logic
         // Destroy(gameObject);
