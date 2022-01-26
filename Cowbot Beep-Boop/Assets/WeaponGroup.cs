@@ -33,6 +33,6 @@ public class WeaponGroup : MonoBehaviour, ITurret {
     public void ReMapWeapons()
     {
         subWeapons = transform.GetComponentsInChildrenWithDepthOne<ITurret>();
-        Debug.Log(subWeapons.Length);
+        // Debug.Log(subWeapons.Length);
     }
 }

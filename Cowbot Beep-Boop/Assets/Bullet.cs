@@ -1,8 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cowbot_Beep_Boop.Data;
 
 public class Bullet : Projectile {
+    Vector2 velocity;
+
+    public Projectile Init(int firedByID, Vector2 position, Vector2 velocity, float lifeSpan, float damage)
+    {
+        type = ProjectileTypeEnum.Bullet;
+        this.velocity = velocity;
+        Init(firedByID, position, lifeSpan, damage, Color.white);
+        return this;
+    }
+
     // Used only in FixedUpdate() context.
     protected override void Move()
     {

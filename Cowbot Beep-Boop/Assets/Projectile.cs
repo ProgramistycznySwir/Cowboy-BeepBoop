@@ -11,19 +11,18 @@ public abstract class Projectile : MonoBehaviour {
     public Color color;
     public float lifeSpan;
     protected float aliveUntil;
-    public Vector2 velocity;
     public float damage;
 
-    public Projectile Init(int firedByID, Vector2 position, Vector2 velocity, float lifeSpan, float damage)
+    public Projectile Init(int firedByID, Vector2 position, float lifeSpan, float damage)
     {
-        Init(firedByID, position, velocity, lifeSpan, damage, Color.white);
+        Init(firedByID, position, lifeSpan, damage, Color.white);
         return this;
     }
-    public Projectile Init(int firedByID, Vector2 position, Vector2 velocity, float lifeSpan, float damage, Color color)
+    public Projectile Init(int firedByID, Vector2 position, float lifeSpan, float damage, Color color)
     {
         gameObject.SetActive(true);
         transform.position = position;
-        this.velocity = velocity;
+        // this.velocity = velocity;
         this.firedByID = firedByID;
         this.lifeSpan = lifeSpan;
         aliveUntil = Time.time + lifeSpan;

@@ -5,12 +5,13 @@ using UnityEngine;
 using Cowbot_Beep_Boop.ProjectilePools;
 
 public class MachineGun : Weapon, ITurret {
-    float canFireAfter;
+    public Transform barrelEnd; // Unity specyfic for placing projectiles in space.
+    
     public void Fire()
     {
         if(canFireAfter < Time.time)
         {
-            Projectile newProjectile = ProjectilePools.GetInstance().GetPool(pool).GetProjectile().Init(
+            Projectile newProjectile = ((Bullet)ProjectilePools.GetInstance().GetPool(pool).GetProjectile()).Init(
                 firedByID: spaceShip.teamID,
                 position: barrelEnd.position,
                 velocity: barrelEnd.up * speed,

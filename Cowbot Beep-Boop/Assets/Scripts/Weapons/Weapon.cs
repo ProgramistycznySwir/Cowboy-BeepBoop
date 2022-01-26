@@ -7,12 +7,12 @@ public abstract class Weapon : MonoBehaviour {
     // public GameObject prefab;
     public SpaceShip spaceShip { get; private set; }
     public ProjectileTypeEnum pool;
-    public Transform barrelEnd; // Unity specyfic for placing projectiles in space.
     public float damage;
     public float speed;
     public float range;
     public float fireRate;
     public float cooldown => 1/fireRate;
+    protected float canFireAfter;
     public bool IsInRange(Vector2 position, Vector2 target)
         => (position - target).magnitude < range;
     public void AssignParentSpaceship(SpaceShip spaceShip)

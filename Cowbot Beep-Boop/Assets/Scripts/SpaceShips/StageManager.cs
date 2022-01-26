@@ -24,24 +24,28 @@ namespace Cowbot_Beep_Boop.SpaceShips
         public const int EnemyLimit = 25;
         public int currentStage { get; private set; } = 0;
         public static readonly (int sumDifficulty, int minDifficulty)[] Stages = new[]{
-            (2, 0), // 0
-            (4, 0), // 1
-            (8, 0), // 2
-            (16, 2), // 3
-            (32, 2), // 4
-            (64, 2), // 5
-            (128, 3), // 6
-            (256, 3), // 7
-            (512, 3), // 8
-            (1024, 3), // 9
-            (2048, 3), // 10
+            (0, 0), // 0
+            (2, 0), // 1
+            (4, 0), // 2
+            (8, 0), // 3
+            (16, 2), // 4
+            (32, 2), // 5
+            (64, 2), // 6
+            (128, 3), // 7
+            (256, 3), // 8
+            (512, 3), // 9
+            (1024, 6), // 10
+            (2048, 6), // 11
         };
 
         public StageEndMenu stageEndMenu;
+        public VictoryMenu victoryMenu;
+        public VictoryMenu gameOverMenu;
 
         void Start()
         {
             PrepareEnemies();
+
             NextStage();
         }
 
@@ -58,9 +62,11 @@ namespace Cowbot_Beep_Boop.SpaceShips
             int topIndex = enemyPrototypes.Count - 1;
             int minIndex = 0;
             System.Random rng = new();
-            while(sumDifficulty > 0 && sumDifficulty >= minDifficulty && Enemies.Count <= EnemyLimit)
+            Debug.Log(currentStage);
+            // while(sumDifficulty > 0 && sumDifficulty >= minDifficulty && Enemies.Count <= EnemyLimit)
+            while(sumDifficulty > 0 && sumDifficulty >= enemyPrototypes[minIndex].difficulty && Enemies.Count <= EnemyLimit)
             {
-                int enemyIndex = minIndex + rng.Next(topIndex - minIndex) + 1;
+                int enemyIndex = minIndex + rng.Next(topIndex - minIndex + 1);
                 EnemySpaceShip enemy = enemyPrototypes[enemyIndex];
                 if(enemy.difficulty > sumDifficulty)
                 {
@@ -81,6 +87,11 @@ namespace Cowbot_Beep_Boop.SpaceShips
                 Enemies.Add(newEnemy.GetComponent<EnemySpaceShip>());
                 sumDifficulty -= enemy.difficulty;
             }
+            if(Enemies.Count <= 0)
+            {
+                // currentStage++;
+                NextStage();
+            }
         }
 
         public void RemoveEnemy(EnemySpaceShip enemy)
@@ -95,25 +106,32 @@ namespace Cowbot_Beep_Boop.SpaceShips
 
         void EndStage()
         {
-            currentStage++;
-            if(currentStage >= Stages.Length)
-                Victory();
-            else
+            if(currentStage < Stages.Length)
             {
                 NextStage();
                 stageEndMenu.Open();
             }
+            else
+                Victory();
         }
 
         void NextStage()
         {
             // Debug.Log($"Generating stage with sumDifficulty: {Stages[currentStage].sumDifficulty}, minDifficulty: {Stages[currentStage].minDifficulty}");
+            // Debug.Log("OI MATE");
+            currentStage++;
             SpawnEnemies(Stages[currentStage]);
         }
 
         void Victory()
         {
             Debug.Log("You've won!!");
+            victoryMenu.Open();
+        }
+        public void GameOver()
+        {
+            Debug.Log("You've lost!!");
+            gameOverMenu.Open();
         }
 
         public Vector2 GetClosestEnemyPosition()

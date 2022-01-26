@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cowbot_Beep_Boop.SpaceShips;
 
 public class PlayerSpaceShip : SpaceShip
 {
     static PlayerSpaceShip _instance;
 
-    public int upgradeLvl;
+    // public int upgradeLvl;
 
-    public SpriteRenderer engineExhaust_Animation;
+    // public SpriteRenderer engineExhaust_Animation;
 
     public PlayerSpaceShip() {
         _instance = this;
@@ -78,6 +79,6 @@ public class PlayerSpaceShip : SpaceShip
     {
         // EnemyManager.GetInstance().RemoveEnemy(this);
         // TODO: Trigger GameOver logic
-        // Destroy(gameObject);
+        StageManager.GetInstance().GameOver();
     }
 }

@@ -16,7 +16,7 @@ namespace Cowbot_Beep_Boop.ProjectilePools
         public ProjectilePools()
             => _instance = this;
 
-        static Dictionary<ProjectileTypeEnum, ProjectilePool> pools = new();
+        Dictionary<ProjectileTypeEnum, ProjectilePool> pools = new();
 
         public ProjectilePool GetPool(ProjectileTypeEnum type) {
             if(pools.TryGetValue(type, out ProjectilePool pool))
@@ -28,5 +28,10 @@ namespace Cowbot_Beep_Boop.ProjectilePools
                     .GetComponent<Projectile>();
             return pools[type] = new ProjectilePool(prefab);
         }
+
+        // void OnDestroy()
+        // {
+        //     pools = new();
+        // }
     }
 }

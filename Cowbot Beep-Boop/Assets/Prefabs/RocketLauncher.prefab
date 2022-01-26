@@ -47,9 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pool: 1
-  barrelEnd: {fileID: 8889613166321097404}
-  damage: 20
-  speed: 4
+  damage: 10
+  speed: 8
   range: 20
   fireRate: 0.5
   lockOnTime: 0

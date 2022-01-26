@@ -25,6 +25,7 @@ public class VictoryMenu : MonoBehaviour
 
     public void OnOpenStartMenu()
     {
+        Debug.Log("HERE");
         SceneManager.LoadScene("GameStart");
     }
     public void OnQuit()
